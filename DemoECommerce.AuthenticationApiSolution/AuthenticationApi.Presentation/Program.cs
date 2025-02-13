@@ -1,5 +1,4 @@
-using OrderApi.Infrastructure.DependencyInjection;
-using OrderApi.Application.DependencyInjection;
+using AuthenticationApi.Infrastructure.DependencyInjection;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddInfrastructureService(builder.Configuration);
-builder.Services.AddApplicationService(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
@@ -20,13 +18,12 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference(options =>
     {
-        options.WithTitle("Order API");
+        options.WithTitle("Authentication API");
         options.WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
     });
 }
 
 app.UseInfrastructurePolicy();
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
