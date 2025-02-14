@@ -6,7 +6,7 @@ namespace ECommerce.SharedLibrary.Middleware
     {
         public async Task InvokeAsync(HttpContext context)
         {
-            var signedHeader = context.Response.Headers["Api-Gateway"];
+            var signedHeader = context.Request.Headers["Api-Gateway"];
 
             if (signedHeader.FirstOrDefault() is null) 
             {

@@ -1,7 +1,6 @@
 ﻿using ECommerce.SharedLibrary.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer.Infrastructure.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -36,11 +35,8 @@ namespace ECommerce.SharedLibrary.DependencyInjection
 
         public static IApplicationBuilder UseSharedPolicies(this IApplicationBuilder app)
         {
-
             app.UseMiddleware<GlobalException>();
-            //app.UseMiddleware<ListenOnlyToApiGateway>();
-
-
+            app.UseMiddleware<ListenOnlyToApiGateway>();
 
             return app;
         }

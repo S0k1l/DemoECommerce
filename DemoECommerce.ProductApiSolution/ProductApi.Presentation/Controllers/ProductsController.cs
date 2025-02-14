@@ -1,15 +1,15 @@
 ﻿using ECommerce.SharedLibrary.Responses;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Application.DTOs;
 using ProductApi.Application.DTOs.Conversions;
 using ProductApi.Application.Interfaces;
-using ProductApi.Domain.Entities;
 
 namespace ProductApi.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductRepository _productRepository;
@@ -20,6 +20,7 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             var products = await _productRepository.GetAllAsync();
@@ -31,6 +32,7 @@ namespace ProductApi.Presentation.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
             var product = await _productRepository.FindByIdAsync(id);
